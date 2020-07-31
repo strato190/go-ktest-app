@@ -1,0 +1,11 @@
+some: thing
+variables: are
+at:
+  - this
+  - very
+  - location
+config:
+  - for
+  - my
+  - test
+  - app
