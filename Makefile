@@ -4,6 +4,7 @@
 #
 
 IMG ?= golang:1.13
+VERSION ?= 0.0.1
 GOFMT_FILES?=$$(find . -name '*.go' |grep -v vendor)
 
 # enable go modules, disabled CGO
@@ -18,13 +19,19 @@ ifeq ($(BUILD),local)
 GO =
 endif
 
+GIT_COMMIT=$(shell git log -1 --pretty=format:"%H")
+
 .PHONY: init
 init:
 	go mod init github.com/strato190/go-ktest-app
 
 .PHONY: build
-build: clean
+build:
 	@go build -o go-ktest-app
+
+.PHONY: build
+build:
+	@docker build --build-arg VERSION=$(VERSION) --build-arg GIT_COMMIT=$(GIT_COMMIT) -t go-ktest-app:$(VERSION) -f Dockerfile .
 
 .PHONY: deps
 deps:

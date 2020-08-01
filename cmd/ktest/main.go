@@ -11,6 +11,10 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+var Version = "0.0.0"
+var GitCommit = "aaaaaaa"
+var BuildTime = "1970-01-01 00:00:00"
+
 type Config struct {
 	Some      string   `json:"some"`
 	Variables string   `json:"variables"`
@@ -62,6 +66,7 @@ func setupRouter() *gin.Engine {
 }
 
 func main() {
+	log.Printf(fmt.Sprintf("Starting app version %s with commit sha: %s built on %s", Version, GitCommit, BuildTime))
 	r := setupRouter()
 	r.Run(":8080")
 }
