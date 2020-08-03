@@ -26,11 +26,11 @@ init:
 	go mod init github.com/strato190/go-ktest-app
 
 .PHONY: build
-build:
+build: clean
 	@go build -o go-ktest-app
 
-.PHONY: build
-build:
+.PHONY: build-docker
+build-docker: deps
 	@docker build --build-arg VERSION=$(VERSION) --build-arg GIT_COMMIT=$(GIT_COMMIT) -t go-ktest-app:$(VERSION) -f Dockerfile .
 
 .PHONY: deps
@@ -47,3 +47,6 @@ fmt:
 
 complex:
 	gocyclo -avg .
+
+clean: 
+	rm -rf go-ktest-app

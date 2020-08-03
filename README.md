@@ -1,5 +1,4 @@
-golang example web app
----
+# golang example web app
 
 `/config`: shows content of config.yml file
 
@@ -7,4 +6,4 @@ golang example web app
 
 `/headers`: shows headers set for request
 
-`/`: show hostname
+`/hostname`: show hostname
