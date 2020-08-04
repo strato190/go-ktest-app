@@ -1,6 +1,15 @@
 package server
 
+import (
+	"github.com/fvbock/endless"
+)
+
+//Init the gin server
 func Init() {
 	r := setupRouter()
-	r.Run(":8080")
+
+	srv := endless.NewServer(":8080", r)
+
+	srv.ListenAndServe()
+
 }

@@ -24,4 +24,5 @@ RUN go build \
 FROM scratch
 ENV ENV PRODUCTION
 COPY --from=buildenv /go/bin/app /go/bin/app
+EXPOSE 8080 9781
 ENTRYPOINT ["/go/bin/app"]
