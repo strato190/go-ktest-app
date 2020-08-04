@@ -1,6 +1,8 @@
 name : Docker Image CI
 on :
   push :
+    paths-ignore:
+    - 'helm/**'
     branches :
       - master
 jobs :
