@@ -9,6 +9,10 @@ import (
 
 	ginprometheus "github.com/banzaicloud/go-gin-prometheus"
 	"github.com/strato190/go-ktest-app/controllers"
+	"github.com/strato190/go-ktest-app/middleware"
+	//_ "github.com/strato190/go-ktest-app/docs"
+	//"github.com/swaggo/gin-swagger"
+	//"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 func stop(c *gin.Context) {
@@ -21,8 +25,13 @@ func setupRouter() *gin.Engine {
 	p.SetListenAddress(":9781")
 	p.Use(r, "/metrics")
 
-	r.Use(gin.Logger())
+	// Default logger from gin
+	//r.Use(gin.Logger())
+
 	r.Use(gin.Recovery())
+
+	r.Use(middleware.LogMiddleware())
+	r.Use(middleware.RequestID(middleware.RequestIDOptions{AllowSetting: false}))
 
 	v1 := r.Group("/v1")
 	{
@@ -41,6 +50,8 @@ func setupRouter() *gin.Engine {
 	r.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "app is up and running ")
 	})
+
+	//r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	r.GET("/stop", stop)
 

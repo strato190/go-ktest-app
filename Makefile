@@ -21,26 +21,24 @@ endif
 
 GIT_COMMIT=$(shell git log -1 --pretty=format:"%H")
 
-.PHONY: init
 init:
 	go mod init github.com/strato190/go-ktest-app
 
-.PHONY: build
 build: clean
 	@go build -o go-ktest-app
 
-.PHONY: build-docker
 build-docker: deps
 	@docker build --build-arg VERSION=$(VERSION) --build-arg GIT_COMMIT=$(GIT_COMMIT) -t go-ktest-app:$(VERSION) -f Dockerfile .
 
-.PHONY: deps
 deps:
 	@go mod tidy
 	@go mod verify
 
-.PHONY: vendor
 vendor:
 	@go mod vendor
+
+lint:
+	golint ./...
 
 fmt:
 	gofmt -w $(GOFMT_FILES)
@@ -50,3 +48,4 @@ complex:
 
 clean: 
 	rm -rf go-ktest-app
+	go clean -i .
