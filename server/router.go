@@ -45,6 +45,8 @@ func setupRouter() *gin.Engine {
 		v1.GET("/hostname", nc.Retrieve)
 		lc := new(controllers.HealthController)
 		v1.GET("/health", lc.Retrieve)
+		sc := new(controllers.SleepController)
+		v1.GET("/sleep", sc.Retrieve)
 	}
 
 	r.GET("/", func(c *gin.Context) {

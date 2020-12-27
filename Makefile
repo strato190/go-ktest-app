@@ -1,6 +1,5 @@
 #
 # Makefile
-# ykharuk, 2019-12-19 10:45
 #
 
 IMG ?= golang:1.13
